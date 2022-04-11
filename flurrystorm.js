@@ -113,7 +113,7 @@ var flurryStorm = {
   
            } else if (flurryStorm.maxWindX <= -3) {
   
-               if (Math.random() * 3 >= 2) {
+               if (Math.random() * 4 >= 2.5) {
                    snowflakes[currentSnowFlake].x = 0;
                snowflakes[currentSnowFlake].y = Math.random() *
   (window.innerHeight - 0) + 0;
@@ -190,7 +190,7 @@ var flurryStorm = {
 
         } else if (flurryStorm.maxWindX <= -3) {
 
-            if (Math.random() * 3 >= 2) {
+            if (Math.random() * 4 >= 2.5) {
                 snowflakes[i].x = 0;
             snowflakes[i].y = Math.random() *
 (window.innerHeight - 0) + 0;
