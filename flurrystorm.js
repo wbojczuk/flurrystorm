@@ -8,20 +8,20 @@ var flurryStorm = {
     autoStart: true,
 
 /* Amount of Snowflakes at once */
-    maxFlakeAmount: 128,
+    maxFlakeAmount: 64,
 
 /* SNOWFLAKE COLOR */
   
     flakeColor : "white",
 
-/*Snowflake size, Change sizeMin to same value as size for no variation
+/*Snowflake size, Change minFlakeSize to same value as maxFlakeSize for no variation
   */
-    maxFlakeSize : 2,
+    maxFlakeSize : 2.5,
     minFlakeSize : 0.5,
 
-/* X-Axis and Y-Axis Wind and Variations, Change windXMin/windYMin to
-  same value as windX/windY for no variation */
-    maxWindX : 5,
+/* X-Axis and Y-Axis Wind and Variations, Change minWindX/minWindY to
+  same value as maxWindX/maxWindY for no variation */
+    maxWindX : 4,
     minWindX : 3,
   
     maxWindY : 3,
