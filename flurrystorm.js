@@ -1,6 +1,11 @@
 var flurryStorm = {
 
+    /* METHODS: flurryStorm.resume(); toggleState(); pause(); */
+
 /* OPTIONS */
+
+/* Whether or Not To Auto Start The Snow Script */
+    autoStart: true,
 
 /* Amount of Snowflakes at once */
     maxFlakeAmount: 128,
@@ -24,23 +29,51 @@ var flurryStorm = {
   
   
   /* SNOW BACKGROUND Z-INDEX */
-    zIndex : 2
+    zIndex : 2,
 
+
+
+  /* UNSERVICEABLE STUFF */
+
+
+    toggleState: function(){if(flurryStorm.state == "on"){
+        flurryStorm.state = "off";
+    } else if (flurryStorm.state == "off" || flurryStorm.state == null) {
+        flurryStorm.state = "on";
+        snowScript();
+    } else if (flurryStorm.state == "pause") {
+        flurryStorm.state = "unpause";
+    }
+},
+    state: null,
+
+    pause: function(){flurryStorm.state = "pause"},
+
+    resume: function(){if (flurryStorm.state == "off" || flurryStorm.state == null) {
+        flurryStorm.state = "on";
+        snowScript();
+    } else if (flurryStorm.state == "pause") {
+        flurryStorm.state = "unpause";
+    } }
 
 
 
 };
   
   
-  /* UNSERVICEABLE STUFF */
   
   
   
   
+  if (flurryStorm.autoStart == true) {
+    flurryStorm.state = "on";
+    snowScript();
+  }
   
-  snowScript();
   
   function snowScript() {
+
+    if (flurryStorm.state == "pause"){flurryStorm.state = "on"; return drawSnowflakes() ;}
     var tempSCanv = document.createElement("canvas");
     tempSCanv.setAttribute("id", "snowCanvas");
     document.getElementsByTagName("body")[0].append(tempSCanv);
@@ -60,6 +93,7 @@ var flurryStorm = {
        snowCanvas.width = window.innerWidth - 1;
        snowCanvas.style.overflow = "hidden";
        snowCanvas.style.position = "fixed";
+       snowCanvas.style.pointerEvents = "none";
        snowCanvas.style.top = "0";
        snowCanvas.style.zIndex = flurryStorm.zIndex;
   
@@ -69,7 +103,7 @@ var flurryStorm = {
        /* INITIALIZE FLAKES */
   
        var snowCounter = 0;
-  
+
        function snowflakeGen() {
            snowCounter++
            var randSizeMin = flurryStorm.minFlakeSize;
@@ -204,8 +238,20 @@ var flurryStorm = {
   
            }
   
-  
+           if (flurryStorm.state == "on"){
        requestAnimationFrame(drawSnowflakes);
+           } else if (flurryStorm.state == "off") {
+            snowCanvas2D.clearRect(0, 0, snowCanvas.width,
+                snowCanvas.height);
+           } else if (flurryStorm.state == "pause") {
+               setTimeout(unPause,10);
+               function unPause(){
+                if (flurryStorm.state == "unpause"){
+                    flurryStorm.state = "on";
+                 requestAnimationFrame(drawSnowflakes);
+                } else {setTimeout(unPause,10);}
+            };
+           }
   }
   
   
