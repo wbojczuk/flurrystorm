@@ -31,6 +31,11 @@ var flurryStorm = {
   /* SNOW BACKGROUND Z-INDEX */
     zIndex : 2,
 
+    /* CUSTOM FLAKE IMAGE? SET VALUE TO null IF YOU WANT DEFAULT FLAKES */
+    /* CUSTOM COLORS ARE NOT AVAILABLE WITH CUSTOM IMAGES */
+
+    imageSRC: null,
+
 
 
   /* UNSERVICEABLE STUFF */
@@ -72,6 +77,10 @@ var flurryStorm = {
   
   
   function snowScript() {
+      var flakeImg = new Image();
+      if (flurryStorm.imageSRC !== null) {
+        flakeImg.src = flurryStorm.imageSRC;
+      }
 
     if (flurryStorm.state == "pause"){flurryStorm.state = "on"; return drawSnowflakes() ;}
     var tempSCanv = document.createElement("canvas");
@@ -168,13 +177,14 @@ var flurryStorm = {
        function drawSnowflakes() {
            snowCanvas2D.clearRect(0, 0, snowCanvas.width,
   snowCanvas.height);
-  
+            if (flurryStorm.imageSRC == null) {
            for ( let i = 0; i < snowflakesLength; i++) {
   snowCanvas2D.beginPath();
   snowCanvas2D.arc(snowflakes[i].x, snowflakes[i].y, snowflakes[i].size,
   0, 2 * Math.PI, false);
   snowCanvas2D.fillStyle = flurryStorm.flakeColor;
        snowCanvas2D.fill();
+  
   
   
                snowflakes[i].x -= snowflakes[i].windX;
@@ -231,11 +241,78 @@ var flurryStorm = {
             }
 
         }
+    }
   
   
   
                }
-  
+                /* CUSTOM IMAGE GEN */
+           } else {
+            for ( let i = 0; i < snowflakesLength; i++) {
+                
+                snowCanvas2D.drawImage(flakeImg, snowflakes[i].x, snowflakes[i].y, snowflakes[i].size, snowflakes[i].size);
+                
+                
+                
+                             snowflakes[i].x -= snowflakes[i].windX;
+                             snowflakes[i].y += snowflakes[i].windY;
+                
+                
+                             /*RESET SNOWFLAKES*/
+                             if (snowflakes[i].x <= 0 || snowflakes[i].y >=
+                window.innerHeight) {
+                                 
+                                 var randSize = Math.random() * (flurryStorm.maxFlakeSize - flurryStorm.minFlakeSize) +
+                                 flurryStorm.minFlakeSize;
+                                 snowflakes[i].x = Math.random() *
+                window.innerWidth
+                                 snowflakes[i].y = 0;
+                                 snowflakes[i].windY = Math.random() * (flurryStorm.maxWindY - flurryStorm.minWindY)
+                + flurryStorm.minWindY,
+                                 snowflakes[i].windX = Math.random() * (flurryStorm.maxWindX - flurryStorm.minWindX)
+                + flurryStorm.minWindX
+                
+                                 snowflakes[i].size = randSize;
+                
+                                 /* SIDE WALL GENERATION */
+                         if (flurryStorm.maxWindX >= 3) {
+                
+                          if (Math.random() * 4 >= 2.5) {
+                              snowflakes[i].x = window.innerWidth;
+                          snowflakes[i].y = Math.random() *
+              (window.innerHeight - 0) + 0;
+                          }
+              
+                      } else if (flurryStorm.maxWindX >= 1 && flurryStorm.maxWindX < 3) {
+              
+                          if (Math.random() * 3 >= 2.5) {
+                              snowflakes[i].x = window.innerWidth;
+                          snowflakes[i].y = Math.random() *
+              (window.innerHeight - 0) + 0;
+                          }
+              
+                      } else if (flurryStorm.maxWindX < 0 && flurryStorm.maxWindX > -3) {
+              
+                          if (Math.random() * 3 >= 2.5) {
+                              snowflakes[i].x = 0;
+                          snowflakes[i].y = Math.random() *
+              (window.innerHeight - 0) + 0;
+                          }
+              
+                      } else if (flurryStorm.maxWindX <= -3) {
+              
+                          if (Math.random() * 4 >= 2.5) {
+                              snowflakes[i].x = 0;
+                          snowflakes[i].y = Math.random() *
+              (window.innerHeight - 0) + 0;
+                          }
+              
+                      }
+                  }
+                
+                
+                
+                             }
            }
   
            if (flurryStorm.state == "on"){
