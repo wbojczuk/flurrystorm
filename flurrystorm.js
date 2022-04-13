@@ -26,6 +26,13 @@ var flurryStorm = {
   
     maxWindY : 3,
     minWindY : 2,
+
+    /* STICK AND MELT TO BOTTOM OF VIEWPORT  TRUE/FALSE*/
+    flakeStick: true,
+
+    /* SPEED FOR SNOWFLAKES TO MELT AT, SET HIGHER FOR BIGGER FLAKES, DEFAULT IS 0.02*/
+    meltSpeed: 0.02,
+
   
   
   /* SNOW BACKGROUND Z-INDEX */
@@ -125,6 +132,7 @@ var flurryStorm = {
                size : randSize,
                windY : Math.random() * (flurryStorm.maxWindY - flurryStorm.minWindY) + flurryStorm.minWindY,
                windX : Math.random() * (flurryStorm.maxWindX - flurryStorm.minWindX) + flurryStorm.minWindX,
+               stopped: false
   
            });
            snowflakesLength = snowflakes.length;
@@ -177,23 +185,46 @@ var flurryStorm = {
        function drawSnowflakes() {
            snowCanvas2D.clearRect(0, 0, snowCanvas.width,
   snowCanvas.height);
-            if (flurryStorm.imageSRC == null) {
+            
            for ( let i = 0; i < snowflakesLength; i++) {
-  snowCanvas2D.beginPath();
-  snowCanvas2D.arc(snowflakes[i].x, snowflakes[i].y, snowflakes[i].size,
-  0, 2 * Math.PI, false);
-  snowCanvas2D.fillStyle = flurryStorm.flakeColor;
-       snowCanvas2D.fill();
+
+            if (flurryStorm.imageSRC == null) {
+                snowCanvas2D.beginPath();
+                snowCanvas2D.arc(snowflakes[i].x, snowflakes[i].y, snowflakes[i].size,
+                0, 2 * Math.PI, false);
+                snowCanvas2D.fillStyle = flurryStorm.flakeColor;
+                    snowCanvas2D.fill();
+                } else {
+                    snowCanvas2D.drawImage(flakeImg, snowflakes[i].x, snowflakes[i].y, snowflakes[i].size, snowflakes[i].size);
+                }
   
   
-  
+               
+
+               /* STICKY SNOWFLAKES */
+
+               if (flurryStorm.flakeStick == true) {
+                   if (snowflakes[i].y >= window.innerHeight - (snowflakes[i].size + 1.5)) {
+                        snowflakes[i].stopped = true;
+                   }
+               }
+               if (snowflakes[i].stopped == true&& snowflakes[i].size > flurryStorm.meltSpeed + 0.01) {
+                   snowflakes[i].size -= flurryStorm.meltSpeed;
+                   snowflakes[i].y = window.innerHeight - (snowflakes[i].size + 1.5);
+
+               } else if (snowflakes[i].stopped == true&& snowflakes[i].size <= flurryStorm.meltSpeed + 0.01){
+                snowflakes[i].stopped = false;
+               }
+
+            /* MOVE THEM BOIS */
+            if (snowflakes[i].stopped == false) {
                snowflakes[i].x -= snowflakes[i].windX;
                snowflakes[i].y += snowflakes[i].windY;
-  
+            }
   
                /*RESET SNOWFLAKES*/
-               if (snowflakes[i].x <= 0 || snowflakes[i].y >=
-  window.innerHeight) {
+               if (snowflakes[i].x <= 0 - snowflakes[i].size || snowflakes[i].y >=
+  window.innerHeight + snowflakes[i].size) {
                    
                    var randSize = Math.random() * (flurryStorm.maxFlakeSize - flurryStorm.minFlakeSize) +
                    flurryStorm.minFlakeSize;
@@ -246,74 +277,8 @@ var flurryStorm = {
   
   
                }
-                /* CUSTOM IMAGE GEN */
-           } else {
-            for ( let i = 0; i < snowflakesLength; i++) {
                 
-                snowCanvas2D.drawImage(flakeImg, snowflakes[i].x, snowflakes[i].y, snowflakes[i].size, snowflakes[i].size);
-                
-                
-                
-                             snowflakes[i].x -= snowflakes[i].windX;
-                             snowflakes[i].y += snowflakes[i].windY;
-                
-                
-                             /*RESET SNOWFLAKES*/
-                             if (snowflakes[i].x <= 0 || snowflakes[i].y >=
-                window.innerHeight) {
-                                 
-                                 var randSize = Math.random() * (flurryStorm.maxFlakeSize - flurryStorm.minFlakeSize) +
-                                 flurryStorm.minFlakeSize;
-                                 snowflakes[i].x = Math.random() *
-                window.innerWidth
-                                 snowflakes[i].y = 0;
-                                 snowflakes[i].windY = Math.random() * (flurryStorm.maxWindY - flurryStorm.minWindY)
-                + flurryStorm.minWindY,
-                                 snowflakes[i].windX = Math.random() * (flurryStorm.maxWindX - flurryStorm.minWindX)
-                + flurryStorm.minWindX
-                
-                                 snowflakes[i].size = randSize;
-                
-                                 /* SIDE WALL GENERATION */
-                         if (flurryStorm.maxWindX >= 3) {
-                
-                          if (Math.random() * 4 >= 2.5) {
-                              snowflakes[i].x = window.innerWidth;
-                          snowflakes[i].y = Math.random() *
-              (window.innerHeight - 0) + 0;
-                          }
-              
-                      } else if (flurryStorm.maxWindX >= 1 && flurryStorm.maxWindX < 3) {
-              
-                          if (Math.random() * 3 >= 2.5) {
-                              snowflakes[i].x = window.innerWidth;
-                          snowflakes[i].y = Math.random() *
-              (window.innerHeight - 0) + 0;
-                          }
-              
-                      } else if (flurryStorm.maxWindX < 0 && flurryStorm.maxWindX > -3) {
-              
-                          if (Math.random() * 3 >= 2.5) {
-                              snowflakes[i].x = 0;
-                          snowflakes[i].y = Math.random() *
-              (window.innerHeight - 0) + 0;
-                          }
-              
-                      } else if (flurryStorm.maxWindX <= -3) {
-              
-                          if (Math.random() * 4 >= 2.5) {
-                              snowflakes[i].x = 0;
-                          snowflakes[i].y = Math.random() *
-              (window.innerHeight - 0) + 0;
-                          }
-              
-                      }
-                  }
-                
-                
-                
-                             }
-           }
+           
   
            if (flurryStorm.state == "on"){
        requestAnimationFrame(drawSnowflakes);
