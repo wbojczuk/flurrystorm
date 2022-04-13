@@ -31,7 +31,7 @@ var flurryStorm = {
     flakeStick: true,
 
     /* SPEED FOR SNOWFLAKES TO MELT AT, SET HIGHER FOR BIGGER FLAKES, DEFAULT IS 0.02*/
-    meltSpeed: 0.02,
+    meltSpeed: 0.01,
 
   
   
@@ -101,6 +101,8 @@ var flurryStorm = {
          snowCanvas.height = window.innerHeight - 1;
          snowCanvas.width = window.innerWidth - 1;
     });
+
+    /* Pause */
     
     var snowflakes = [];
        var snowCanvas2D = snowCanvas.getContext('2d');
