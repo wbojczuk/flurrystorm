@@ -16,7 +16,7 @@ var flurryStorm = {
 
     // WHETHER OR NOT TO SCROLL SNOW WHEN THE USER SCROLLS... NOT AVAILABLE ON MASSIVELY LONG PAGES DUE TO CANVAS DIMENSION RESTRICTIONS
 
-    scrollSnow: true,
+    scrollSnow: false,
 
 /*Snowflake size, Change minFlakeSize to same value as maxFlakeSize for no variation
   */
