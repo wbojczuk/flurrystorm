@@ -293,26 +293,26 @@ var flurryStorm = {
                /* STICKY SNOWFLAKES */
                 if(flurryStorm.scrollSnow == true){
                if (flurryStorm.flakeStick == true) {
-                   if (snowflakes[i].y >= window.innerHeight + window.pageYOffset - (snowflakes[i].size + 1.5)) {
+                   if (snowflakes[i].y >= window.innerHeight + window.pageYOffset - (snowflakes[i].size + 1)) {
                         snowflakes[i].stopped = true;
                    }
                }
                if (snowflakes[i].stopped == true&& snowflakes[i].size > flurryStorm.meltSpeed + 0.01) {
                    snowflakes[i].size -= flurryStorm.meltSpeed;
-                   snowflakes[i].y = window.innerHeight + window.pageYOffset - (snowflakes[i].size + 1.5);
+                   snowflakes[i].y = window.innerHeight + window.pageYOffset - (snowflakes[i].size + 1);
 
                } else if (snowflakes[i].stopped == true&& snowflakes[i].size <= flurryStorm.meltSpeed + 0.01){
                 snowflakes[i].stopped = false;
                }
             } else {
                 if (flurryStorm.flakeStick == true) {
-                    if (snowflakes[i].y >= window.innerHeight - (snowflakes[i].size + 1.5)) {
+                    if (snowflakes[i].y >= window.innerHeight - (snowflakes[i].size + 1)) {
                          snowflakes[i].stopped = true;
                     }
                 }
                 if (snowflakes[i].stopped == true&& snowflakes[i].size > flurryStorm.meltSpeed + 0.01) {
                     snowflakes[i].size -= flurryStorm.meltSpeed;
-                    snowflakes[i].y = window.innerHeight - (snowflakes[i].size + 1.5);
+                    snowflakes[i].y = window.innerHeight - (snowflakes[i].size + 1);
  
                 } else if (snowflakes[i].stopped == true&& snowflakes[i].size <= flurryStorm.meltSpeed + 0.01){
                  snowflakes[i].stopped = false;
