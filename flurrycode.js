@@ -15,18 +15,18 @@ document.getElementById("colorButton").addEventListener("click", function(){
 });
 
 document.getElementById("WindXButton").addEventListener("click", function(){
-    flurryStorm.minWindX = parseInt(document.getElementById("minWindX").value);
-    flurryStorm.maxWindX = parseInt(document.getElementById("maxWindX").value);
+    flurryStorm.minWindX = parseFloat(document.getElementById("minWindX").value);
+    flurryStorm.maxWindX = parseFloat(document.getElementById("maxWindX").value);
 });
 
 document.getElementById("WindYButton").addEventListener("click", function(){
-    flurryStorm.minWindY = parseInt(document.getElementById("minWindY").value);
-    flurryStorm.maxWindY = parseInt(document.getElementById("maxWindY").value);
+    flurryStorm.minWindY = parseFloat(document.getElementById("minWindY").value);
+    flurryStorm.maxWindY = parseFloat(document.getElementById("maxWindY").value);
 });
 
 document.getElementById("sizeButton").addEventListener("click", function(){
-    flurryStorm.minFlakeSize = parseInt(document.getElementById("minSize").value);
-    flurryStorm.maxFlakeAmount = parseInt(document.getElementById("maxSize").value);
+    flurryStorm.minFlakeSize = parseFloat(document.getElementById("minSize").value);
+    flurryStorm.maxFlakeSize = parseFloat(document.getElementById("maxSize").value);
 });
 
 document.getElementById("meltSpeedButton").addEventListener("click", function(){

@@ -332,6 +332,7 @@ var flurryStorm = {
                    
                    var randSize = Math.random() * (flurryStorm.maxFlakeSize - flurryStorm.minFlakeSize) +
                    flurryStorm.minFlakeSize;
+                   
                    snowflakes[i].x = Math.random() *
   window.innerWidth
                    snowflakes[i].y = 0 + window.pageYOffset;
