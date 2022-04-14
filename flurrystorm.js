@@ -88,6 +88,11 @@ var flurryStorm = {
   
   
   function snowScript() {
+      /* TEST FOR EXISTING CANVAS */
+     var ifCanv = document.querySelectorAll("#snowCanvas");
+     if (ifCanv.length >= 1) {
+         ifCanv[0].remove();
+     }
       var flakeImg = new Image();
       if (flurryStorm.imageSRC !== null) {
         flakeImg.src = flurryStorm.imageSRC;
