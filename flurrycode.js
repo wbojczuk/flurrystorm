@@ -40,3 +40,13 @@ document.getElementById("flakeStick").addEventListener("click", function(){
         flurryStorm.flakeStick = true;
     }
 });
+
+document.getElementById("flakeScroll").addEventListener("click", function(){
+    if (flurryStorm.scrollSnow == true) {
+        flurryStorm.scrollSnow = false;
+        document.getElementById("snowCanvas").style.position = "fixed";
+    } else {
+        flurryStorm.scrollSnow = true;
+        document.getElementById("snowCanvas").style.position = "absolute";
+    }
+});
