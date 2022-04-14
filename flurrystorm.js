@@ -14,6 +14,10 @@ var flurryStorm = {
   
     flakeColor : "white",
 
+    // WHETHER OR NOT TO SCROLL SNOW WHEN THE USER SCROLLS... NOT AVAILABLE ON MASSIVELY LONG PAGES DUE TO CANVAS DIMENSION RESTRICTIONS
+
+    scrollSnow: true,
+
 /*Snowflake size, Change minFlakeSize to same value as maxFlakeSize for no variation
   */
     maxFlakeSize : 2.5,
@@ -31,7 +35,7 @@ var flurryStorm = {
     flakeStick: true,
 
     /* SPEED FOR SNOWFLAKES TO MELT AT, SET HIGHER FOR BIGGER FLAKES, DEFAULT IS 0.02*/
-    meltSpeed: 0.02,
+    meltSpeed: 0.01,
 
   
   
@@ -97,21 +101,54 @@ var flurryStorm = {
     /* WINDOW SIZE LISTENER */
     var snowCanvas = document.getElementById("snowCanvas");
     
-    window.addEventListener('resize', function(){
-         snowCanvas.height = window.innerHeight - 1;
-         snowCanvas.width = window.innerWidth - 1;
-    });
+    
+
     
     var snowflakes = [];
        var snowCanvas2D = snowCanvas.getContext('2d');
        var snowflakesLength;
-       snowCanvas.height = window.innerHeight - 1;
-       snowCanvas.width = window.innerWidth - 1;
+       var height;
+
+       if (flurryStorm.scrollSnow == true) {
+       setTimeout(function(){height = Math.max(
+        document.body.scrollHeight, 
+    document.body.clientHeight, 
+    document.body.offsetHeight, 
+    document.documentElement.scrollHeight, 
+    document.documentElement.offsetHeight, 
+    document.documentElement.clientHeight);
+    snowCanvas.height = height;
+    snowCanvas.width = document.body.clientWidth;
+    snowCanvas.style.position = "absolute";
+    window.addEventListener('resize', function(){
+            snowCanvas.width = document.body.clientWidth;
+       });
+
+       
+},100);
+       } else {
+        setTimeout(function(){
+        
+        window.addEventListener('resize', function(){
+            snowCanvas.height = document.body.clientHeight;
+            snowCanvas.width = document.body.clientWidth;
+       });
+        snowCanvas.style.position = "fixed";
+
+        snowCanvas.height = document.body.clientHeight;
+       snowCanvas.width = document.body.clientWidth;
+    },100);
+       }
+    
+    
+    
+       
+       
        snowCanvas.style.overflow = "hidden";
-       snowCanvas.style.position = "fixed";
        snowCanvas.style.pointerEvents = "none";
        snowCanvas.style.top = "0";
        snowCanvas.style.zIndex = flurryStorm.zIndex;
+       
   
   
        setTimeout(snowflakeGen, 50);
@@ -124,11 +161,16 @@ var flurryStorm = {
            snowCounter++
            var randSizeMin = flurryStorm.minFlakeSize;
            var randSize = Math.random() * (flurryStorm.maxFlakeSize - randSizeMin) +
-  randSizeMin
-  
+  randSizeMin;
+  var tempY;
+  if (flurryStorm.scrollSnow == true) {
+    tempY = 0 + window.pageYOffset;
+  } else {
+    tempY = 0;
+  }
            snowflakes.push({
                x : Math.random() * window.innerWidth,
-               y : 0,
+               y : tempY,
                size : randSize,
                windY : Math.random() * (flurryStorm.maxWindY - flurryStorm.minWindY) + flurryStorm.minWindY,
                windX : Math.random() * (flurryStorm.maxWindX - flurryStorm.minWindX) + flurryStorm.minWindX,
@@ -138,12 +180,15 @@ var flurryStorm = {
            snowflakesLength = snowflakes.length;
            var currentSnowFlake = snowflakesLength - 1;
            /* SIDE WALL GENERATION */
-           if (flurryStorm.maxWindX >= 3) {
-  
+           
+
+            
+            if (flurryStorm.scrollSnow == true){
+                if (flurryStorm.maxWindX >= 3) {
                if (Math.random() * 4 >= 2.5) {
                    snowflakes[currentSnowFlake].x = window.innerWidth;
                snowflakes[currentSnowFlake].y = Math.random() *
-  (window.innerHeight - 0) + 0;
+               (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
                }
   
            } else if (flurryStorm.maxWindX >= 1 && flurryStorm.maxWindX < 3) {
@@ -151,7 +196,7 @@ var flurryStorm = {
                if (Math.random() * 3 >= 2.5) {
                    snowflakes[currentSnowFlake].x = window.innerWidth;
                snowflakes[currentSnowFlake].y = Math.random() *
-  (window.innerHeight - 0) + 0;
+               (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
                }
   
            } else if (flurryStorm.maxWindX < 0 && flurryStorm.maxWindX > -3) {
@@ -159,7 +204,7 @@ var flurryStorm = {
                if (Math.random() * 3 >= 2.5) {
                    snowflakes[currentSnowFlake].x = 0;
                snowflakes[currentSnowFlake].y = Math.random() *
-  (window.innerHeight - 0) + 0;
+               (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
                }
   
            } else if (flurryStorm.maxWindX <= -3) {
@@ -167,10 +212,47 @@ var flurryStorm = {
                if (Math.random() * 4 >= 2.5) {
                    snowflakes[currentSnowFlake].x = 0;
                snowflakes[currentSnowFlake].y = Math.random() *
-  (window.innerHeight - 0) + 0;
+               (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
                }
   
-           } 
+           }
+         
+
+        } else {
+            if (flurryStorm.maxWindX >= 3) {
+  
+                if (Math.random() * 4 >= 2.5) {
+                    snowflakes[currentSnowFlake].x = window.innerWidth;
+                snowflakes[currentSnowFlake].y = Math.random() *
+   (window.innerHeight - 0) + 0;
+                }
+   
+            } else if (flurryStorm.maxWindX >= 1 && flurryStorm.maxWindX < 3) {
+   
+                if (Math.random() * 3 >= 2.5) {
+                    snowflakes[currentSnowFlake].x = window.innerWidth;
+                snowflakes[currentSnowFlake].y = Math.random() *
+   (window.innerHeight - 0) + 0;
+                }
+   
+            } else if (flurryStorm.maxWindX < 0 && flurryStorm.maxWindX > -3) {
+   
+                if (Math.random() * 3 >= 2.5) {
+                    snowflakes[currentSnowFlake].x = 0;
+                snowflakes[currentSnowFlake].y = Math.random() *
+   (window.innerHeight - 0) + 0;
+                }
+   
+            } else if (flurryStorm.maxWindX <= -3) {
+   
+                if (Math.random() * 4 >= 2.5) {
+                    snowflakes[currentSnowFlake].x = 0;
+                snowflakes[currentSnowFlake].y = Math.random() *
+   (window.innerHeight - 0) + 0;
+                }
+   
+            }
+        }
            if (snowCounter < flurryStorm.maxFlakeAmount) {
             setTimeout(snowflakeGen, 50);
            }
@@ -181,8 +263,10 @@ var flurryStorm = {
   
   
        drawSnowflakes();
+       
   
        function drawSnowflakes() {
+           
            snowCanvas2D.clearRect(0, 0, snowCanvas.width,
   snowCanvas.height);
             
@@ -202,19 +286,33 @@ var flurryStorm = {
                
 
                /* STICKY SNOWFLAKES */
-
+                if(flurryStorm.scrollSnow == true){
                if (flurryStorm.flakeStick == true) {
-                   if (snowflakes[i].y >= window.innerHeight - (snowflakes[i].size + 1.5)) {
+                   if (snowflakes[i].y >= window.innerHeight + window.pageYOffset - (snowflakes[i].size + 1.5)) {
                         snowflakes[i].stopped = true;
                    }
                }
                if (snowflakes[i].stopped == true&& snowflakes[i].size > flurryStorm.meltSpeed + 0.01) {
                    snowflakes[i].size -= flurryStorm.meltSpeed;
-                   snowflakes[i].y = window.innerHeight - (snowflakes[i].size + 1.5);
+                   snowflakes[i].y = window.innerHeight + window.pageYOffset - (snowflakes[i].size + 1.5);
 
                } else if (snowflakes[i].stopped == true&& snowflakes[i].size <= flurryStorm.meltSpeed + 0.01){
                 snowflakes[i].stopped = false;
                }
+            } else {
+                if (flurryStorm.flakeStick == true) {
+                    if (snowflakes[i].y >= window.innerHeight - (snowflakes[i].size + 1.5)) {
+                         snowflakes[i].stopped = true;
+                    }
+                }
+                if (snowflakes[i].stopped == true&& snowflakes[i].size > flurryStorm.meltSpeed + 0.01) {
+                    snowflakes[i].size -= flurryStorm.meltSpeed;
+                    snowflakes[i].y = window.innerHeight - (snowflakes[i].size + 1.5);
+ 
+                } else if (snowflakes[i].stopped == true&& snowflakes[i].size <= flurryStorm.meltSpeed + 0.01){
+                 snowflakes[i].stopped = false;
+                }
+            }
 
             /* MOVE THEM BOIS */
             if (snowflakes[i].stopped == false) {
@@ -223,14 +321,15 @@ var flurryStorm = {
             }
   
                /*RESET SNOWFLAKES*/
+               if (flurryStorm.scrollSnow == true){
                if (snowflakes[i].x <= 0 - snowflakes[i].size || snowflakes[i].y >=
-  window.innerHeight + snowflakes[i].size) {
+  window.innerHeight + snowflakes[i].size + window.pageYOffset) {
                    
                    var randSize = Math.random() * (flurryStorm.maxFlakeSize - flurryStorm.minFlakeSize) +
                    flurryStorm.minFlakeSize;
                    snowflakes[i].x = Math.random() *
   window.innerWidth
-                   snowflakes[i].y = 0;
+                   snowflakes[i].y = 0 + window.pageYOffset;
                    snowflakes[i].windY = Math.random() * (flurryStorm.maxWindY - flurryStorm.minWindY)
   + flurryStorm.minWindY,
                    snowflakes[i].windX = Math.random() * (flurryStorm.maxWindX - flurryStorm.minWindX)
@@ -244,7 +343,7 @@ var flurryStorm = {
             if (Math.random() * 4 >= 2.5) {
                 snowflakes[i].x = window.innerWidth;
             snowflakes[i].y = Math.random() *
-(window.innerHeight - 0) + 0;
+            (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
             }
 
         } else if (flurryStorm.maxWindX >= 1 && flurryStorm.maxWindX < 3) {
@@ -252,7 +351,7 @@ var flurryStorm = {
             if (Math.random() * 3 >= 2.5) {
                 snowflakes[i].x = window.innerWidth;
             snowflakes[i].y = Math.random() *
-(window.innerHeight - 0) + 0;
+            (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
             }
 
         } else if (flurryStorm.maxWindX < 0 && flurryStorm.maxWindX > -3) {
@@ -260,7 +359,7 @@ var flurryStorm = {
             if (Math.random() * 3 >= 2.5) {
                 snowflakes[i].x = 0;
             snowflakes[i].y = Math.random() *
-(window.innerHeight - 0) + 0;
+            (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
             }
 
         } else if (flurryStorm.maxWindX <= -3) {
@@ -268,10 +367,61 @@ var flurryStorm = {
             if (Math.random() * 4 >= 2.5) {
                 snowflakes[i].x = 0;
             snowflakes[i].y = Math.random() *
-(window.innerHeight - 0) + 0;
+(window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
             }
 
         }
+    } } else {
+        if (snowflakes[i].x <= 0 - snowflakes[i].size || snowflakes[i].y >=
+            window.innerHeight + snowflakes[i].size) {
+                             
+                             var randSize = Math.random() * (flurryStorm.maxFlakeSize - flurryStorm.minFlakeSize) +
+                             flurryStorm.minFlakeSize;
+                             snowflakes[i].x = Math.random() *
+            window.innerWidth
+                             snowflakes[i].y = 0;
+                             snowflakes[i].windY = Math.random() * (flurryStorm.maxWindY - flurryStorm.minWindY)
+            + flurryStorm.minWindY,
+                             snowflakes[i].windX = Math.random() * (flurryStorm.maxWindX - flurryStorm.minWindX)
+            + flurryStorm.minWindX
+            
+                             snowflakes[i].size = randSize;
+            
+                             /* SIDE WALL GENERATION */
+                     if (flurryStorm.maxWindX >= 3) {
+            
+                      if (Math.random() * 4 >= 2.5) {
+                          snowflakes[i].x = window.innerWidth;
+                      snowflakes[i].y = Math.random() *
+          (window.innerHeight - 0) + 0;
+                      }
+          
+                  } else if (flurryStorm.maxWindX >= 1 && flurryStorm.maxWindX < 3) {
+          
+                      if (Math.random() * 3 >= 2.5) {
+                          snowflakes[i].x = window.innerWidth;
+                      snowflakes[i].y = Math.random() *
+          (window.innerHeight - 0) + 0;
+                      }
+          
+                  } else if (flurryStorm.maxWindX < 0 && flurryStorm.maxWindX > -3) {
+          
+                      if (Math.random() * 3 >= 2.5) {
+                          snowflakes[i].x = 0;
+                      snowflakes[i].y = Math.random() *
+          (window.innerHeight - 0) + 0;
+                      }
+          
+                  } else if (flurryStorm.maxWindX <= -3) {
+          
+                      if (Math.random() * 4 >= 2.5) {
+                          snowflakes[i].x = 0;
+                      snowflakes[i].y = Math.random() *
+          (window.innerHeight - 0) + 0;
+                      }
+          
+                  }
+              }
     }
   
   
