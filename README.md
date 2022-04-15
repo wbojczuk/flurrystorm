@@ -1,4 +1,4 @@
-# snowscript
+# flurrystorm.js
 
 How to use?
 This script is free for use. Just download the flurrystorm.js script and link it to your webpage. Clicking the download button will download both the flurryStorm.js file and its minified version flurrystorm-min.js
