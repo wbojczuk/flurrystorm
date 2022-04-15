@@ -1,10 +1,10 @@
 document.getElementById("code1").textContent = '<script src="flurryscript.js" defer></script>';
 
 document.getElementById("color").value = flurryStorm.flakeColor;
-document.getElementById("minWindX").value = flurryStorm.minWindX;
-document.getElementById("maxWindX").value = flurryStorm.maxWindX;
-document.getElementById("minWindY").value = flurryStorm.minWindY;
-document.getElementById("maxWindY").value = flurryStorm.maxWindY;
+document.getElementById("minWindX").value = flurryStorm.minWindX.toFixed(2);
+document.getElementById("maxWindX").value = flurryStorm.maxWindX.toFixed(2);
+document.getElementById("minWindY").value = flurryStorm.minWindY.toFixed(2);
+document.getElementById("maxWindY").value = flurryStorm.maxWindY.toFixed(2);
 document.getElementById("minSize").value = flurryStorm.minFlakeSize;
 document.getElementById("maxSize").value = flurryStorm.maxFlakeSize;
 document.getElementById("meltSpeed").value = flurryStorm.meltSpeed;
