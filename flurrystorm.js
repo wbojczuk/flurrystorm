@@ -35,12 +35,12 @@ var flurryStorm = {
     minFlakeSize : 0.5,
 
 /* X-Axis and Y-Axis Wind and Variations, Change minWindX/minWindY to
-  same value as maxWindX/maxWindY for no variation */
-    maxWindX : 4,
-    minWindX : 3,
+  same value as maxWindX/maxWindY for no variation // LEAVE NULL FOR RANDOM WIND */
+    maxWindX : null,
+    minWindX : null,
   
-    maxWindY : 3,
-    minWindY : 2,
+    maxWindY : null,
+    minWindY : null,
 
     /* STICK AND MELT TO BOTTOM OF VIEWPORT  TRUE/FALSE | DOESN'T SUPPORT SCROLLSNOW*/
     flakeStick: true,
@@ -136,6 +136,21 @@ var flurryStorm = {
     snowScript();
   }
   function snowScript() {
+
+    /* GENERATE RANDOM WIND */
+    if (flurryStorm.maxWindX == null|| flurryStorm.minWindX == null) {
+        flurryStorm.minWindX = Math.random() * (5 + 5) - 5;
+        if(flurryStorm.minWindX >= 0) {
+        flurryStorm.maxWindX = flurryStorm.minWindX + 1.5;
+        } else {
+            flurryStorm.maxWindX = flurryStorm.minWindX - 1.5;
+        }
+    }
+
+    if (flurryStorm.maxWindY == null|| flurryStorm.minWindY == null) {
+        flurryStorm.minWindY = Math.random() * (3 - 0) + 0;
+        flurryStorm.maxWindY = flurryStorm.minWindY + 1.2;
+    }
     /* SET LISTENERS */
     flurryStorm.listenerState = "off";
         flurryStorm.toggleListeners();
