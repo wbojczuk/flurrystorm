@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>flurrystorm.js Demo</title>
-    <script src="flurrystorm.js" defer></script>
+    <script src="flurrystorm-min.js" defer></script>
     <script src="flurrycode.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,7 +17,7 @@
    
         <div class="title">How to use?</div>
         <div class="center"><div class="seperator"></div></div>
-        <div class="center"><div class="text">This script is free for use. Just download the flurrystorm.js script and link it to your webpage.</div></div>
+        <div class="center"><div class="text">This script is free for use. Just download the flurrystorm.js script and link it to your webpage. Clicking the download button will download both the flurryStorm.js file and its minified version flurrystorm-min.js</div></div>
         <div class="center"><div class="code" id="code1"></div></div>
 
         <div class="title">Performance</div>
@@ -32,14 +32,38 @@
         <div class="center"><div class="seperator"></div></div>
         <div class="center"><div class="text">The flurrystorm.js script creates an object "flurryStorm" and all settings can be changed with the following syntax "flurryStorm.option = value;" permanent changes to options can be made from within the flurrystorm.js file.</div></div>
 
+        <div class="title">Options/Methods</div>
+        <div class="center"><div class="seperator"></div></div>
+        <div class="center"><div class="code" style="font-size: 1.4vw; line-height: 2; margin-bottom: 2vw;">
+            <div style="text-align: center;">/* METHODS */</div>
+            <div style="margin-bottom: 0.5vw; border-bottom: 2px solid #37C4F3; display: inline-block;">flurryStorm.</div><br>
+            toggleState(); // Toggles snow on/off<br>
+            pause(); // Freezes snow mid-air<br>
+            resume(); // Unfreezes snow<br>
+            start(); // Starts the script<br>
+            stop(); // Stops script/removes event listeners<br><br>
+            <div style="text-align: center;">/* OPTIONS */</div>
+            <div style="margin-bottom: 0.5vw; border-bottom: 2px solid #37C4F3; display: inline-block;">flurryStorm.</div><br>
+            autoStart = Accepts boolean true/false<br>
+            maxFlakeAmount = Accepts integer values<br>
+            flakeColor = Accepts hex/rgba/colorname values<br>
+            min/maxFlakeSize = Accepts integer values<br>
+            min/maxWindX = Accepts integer values<br>
+            min/maxWindY = Accepts integer values<br>
+            min/maxSize = Accepts integer values<br>
+            flakeStick = Accepts boolean true/false<br>
+           meltSpeed = Accepts integer values<br>
+           zIndex = Accepts integer values<br>
+           imageSRC = Accepts string img source<br>
+            
+            
+        </div></div>
+
     
     <div class="option-bar">
         
-        <button style="margin-top: 1.5vw; display: none;" onclick="flurryStorm.toggleState();">Toggle Snow</button>
-        
         <button style="margin-top: 1.5vw" onclick="flurryStorm.pause();">Pause</button>
 
-        
         <button onclick="flurryStorm.resume();">Resume</button>
 
         <button id="flakeStick">Toggle Flake Sticking</button>
