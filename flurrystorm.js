@@ -166,7 +166,7 @@ var flurryStorm = {
     }
 
     if (flurryStorm.maxWindY == null|| flurryStorm.minWindY == null) {
-        flurryStorm.minWindY = Math.random() * (3 - 0) + 0;
+        flurryStorm.minWindY = Math.random() * (3 - 1) + 1;
         flurryStorm.maxWindY = flurryStorm.minWindY + 1.2;
     }
     /* SET LISTENERS */
