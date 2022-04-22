@@ -243,7 +243,7 @@ var flurryStorm = {
             if (flurryStorm.scrollSnow == true){
                 if (flurryStorm.maxWindX >= 3) {
                     
-               if (Math.random() * 4 >= 2.5) {
+               if (Math.random() * 4 >= 2) {
                 flurryStorm.snowflakes[currentSnowFlake].x = window.innerWidth;
                 flurryStorm.snowflakes[currentSnowFlake].y = Math.random() *
                (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
@@ -261,7 +261,7 @@ var flurryStorm = {
                (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
                }
            } else if (flurryStorm.maxWindX <= -3) {
-               if (Math.random() * 4 >= 2.5) {
+               if (Math.random() * 4 >= 2) {
                 flurryStorm.snowflakes[currentSnowFlake].x = 0;
                 flurryStorm.snowflakes[currentSnowFlake].y = Math.random() *
                (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
@@ -269,7 +269,7 @@ var flurryStorm = {
            }
         } else {
             if (flurryStorm.maxWindX >= 3) {
-                if (Math.random() * 4 >= 2.5) {
+                if (Math.random() * 4 >= 2) {
                     flurryStorm.snowflakes[currentSnowFlake].x = window.innerWidth;
                     flurryStorm.snowflakes[currentSnowFlake].y = Math.random() *
    (window.innerHeight - 0) + 0;
@@ -345,7 +345,7 @@ var flurryStorm = {
   flurryStorm.snowflakes[i].size = randSize;
                    /* SIDE WALL GENERATION */
            if (flurryStorm.maxWindX >= 3) {
-            if (Math.random() * 4 >= 2.5) {
+            if (Math.random() * 4 >= 2) {
                 flurryStorm.snowflakes[i].x = window.innerWidth;
                 flurryStorm.snowflakes[i].y = Math.random() *
             (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
@@ -363,7 +363,7 @@ var flurryStorm = {
             (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
             }
         } else if (flurryStorm.maxWindX <= -3) {
-            if (Math.random() * 4 >= 2.5) {
+            if (Math.random() * 4 >= 2) {
                 flurryStorm.snowflakes[i].x = 0;
                 flurryStorm.snowflakes[i].y = Math.random() *
 (window.innerHeight + window.pageYOffset - window.pageYOffset) + window.pageYOffset;
@@ -384,7 +384,7 @@ var flurryStorm = {
             flurryStorm.snowflakes[i].size = randSize;
                              /* SIDE WALL GENERATION */
                      if (flurryStorm.maxWindX >= 3) {
-                      if (Math.random() * 4 >= 2.5) {
+                      if (Math.random() * 4 >= 2) {
                         flurryStorm.snowflakes[i].x = window.innerWidth;
                         flurryStorm.snowflakes[i].y = Math.random() *
           (window.innerHeight - 0) + 0;
@@ -402,7 +402,7 @@ var flurryStorm = {
           (window.innerHeight - 0) + 0;
                       }          
                   } else if (flurryStorm.maxWindX <= -3) {         
-                      if (Math.random() * 4 >= 2.5) {
+                      if (Math.random() * 4 >= 2) {
                         flurryStorm.snowflakes[i].x = 0;
                       flurryStorm.snowflakes[i].y = Math.random() *
           (window.innerHeight - 0) + 0;
