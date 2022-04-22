@@ -46,9 +46,10 @@ var flurryStorm = {
     flakeStick: true,
 
     /* SPEED FOR SNOWFLAKES TO MELT AT, SET HIGHER FOR BIGGER FLAKES, DEFAULT IS 0.01*/
-    meltSpeed: 0.01,
+    meltSpeed: 0.02,
 
-  
+    /* Leave value null for autogeneration speed */ 
+    generateSpeed: null,
   
   /* SNOW BACKGROUND Z-INDEX */
     zIndex : 2,
@@ -137,6 +138,23 @@ var flurryStorm = {
   }
   function snowScript() {
 
+    /* GENERATION SPEED */
+    if (flurryStorm.generateSpeed == null) {
+
+    if (flurryStorm.maxWindX > 4 || flurryStorm.maxWindX < -4) {
+        flurryStorm.generateSpeed = 50;
+    } else if ((flurryStorm.maxWindX > 3 && flurryStorm.maxWindX < 4)||(flurryStorm.maxWindX < -3 && flurryStorm.maxWindX > -4)) {
+        flurryStorm.generateSpeed = 100;
+    } else if ((flurryStorm.maxWindX > 2 && flurryStorm.maxWindX < 3)||(flurryStorm.maxWindX < -2 && flurryStorm.maxWindX > -3)) {
+        flurryStorm.generateSpeed = 150;
+    } else if ((flurryStorm.maxWindX > 1 && flurryStorm.maxWindX < 2)||(flurryStorm.maxWindX < -1 && flurryStorm.maxWindX > -2)) {
+        flurryStorm.generateSpeed = 200;
+    } else if (flurryStorm.maxWindX > -1 || flurryStorm.maxWindX < 1) {
+        flurryStorm.generateSpeed = 250;
+    }
+
+    }
+
     /* GENERATE RANDOM WIND */
     if (flurryStorm.maxWindX == null|| flurryStorm.minWindX == null) {
         flurryStorm.minWindX = Math.random() * (5 + 5) - 5;
@@ -224,6 +242,7 @@ var flurryStorm = {
            /* SIDE WALL GENERATION */
             if (flurryStorm.scrollSnow == true){
                 if (flurryStorm.maxWindX >= 3) {
+                    
                if (Math.random() * 4 >= 2.5) {
                 flurryStorm.snowflakes[currentSnowFlake].x = window.innerWidth;
                 flurryStorm.snowflakes[currentSnowFlake].y = Math.random() *
@@ -276,7 +295,7 @@ var flurryStorm = {
             }
         }
            if (snowCounter < flurryStorm.maxFlakeAmount) {
-            setTimeout(snowflakeGen, 50);
+            setTimeout(snowflakeGen, flurryStorm.generateSpeed);
            }
        }
        drawSnowflakes();
@@ -312,8 +331,8 @@ var flurryStorm = {
             }
                /*RESET SNOWFLAKES*/
                if (flurryStorm.scrollSnow == true){
-               if (flurryStorm.snowflakes[i].x <= 0 - flurryStorm.snowflakes[i].size || flurryStorm.snowflakes[i].y >=
-  window.innerHeight + flurryStorm.snowflakes[i].size + window.pageYOffset) {
+               if ((flurryStorm.snowflakes[i].x <= 0 - flurryStorm.snowflakes[i].size) || (flurryStorm.snowflakes[i].x >= document.body.clientWidth + 20) || (flurryStorm.snowflakes[i].y >=
+  window.innerHeight + flurryStorm.snowflakes[i].size + window.pageYOffset)) {
                    var randSize = Math.random() * (flurryStorm.maxFlakeSize - flurryStorm.minFlakeSize) +
                    flurryStorm.minFlakeSize;
                    flurryStorm.snowflakes[i].x = Math.random() *
@@ -351,8 +370,8 @@ var flurryStorm = {
             }
         }
     } } else {
-        if (flurryStorm.snowflakes[i].x <= 0 - flurryStorm.snowflakes[i].size || flurryStorm.snowflakes[i].y >=
-            window.innerHeight + flurryStorm.snowflakes[i].size) {
+        if ((flurryStorm.snowflakes[i].x <= 0 - flurryStorm.snowflakes[i].size) || (flurryStorm.snowflakes[i].x >= document.body.clientWidth + 20) || (flurryStorm.snowflakes[i].y >=
+            window.innerHeight + flurryStorm.snowflakes[i].size)) {
                              var randSize = Math.random() * (flurryStorm.maxFlakeSize - flurryStorm.minFlakeSize) +
                              flurryStorm.minFlakeSize;
                              flurryStorm.snowflakes[i].x = Math.random() *
