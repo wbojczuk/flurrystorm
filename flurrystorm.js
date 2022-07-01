@@ -1,7 +1,7 @@
 /*
  Program: flurrystorm.js
  Version: 1.1 
- Creator: William Bojczuk (wiliambojcuzk@gmail.com)
+ Creator: William Bojczuk (wiliambojczuk@gmail.com)
  License: BSD
  Github: https://github.com/wbojczuk
  Website: https://williambojczuk.com
