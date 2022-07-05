@@ -111,8 +111,8 @@ var flurryStorm = {
             snowCanvas.height = height;
     },
     WindowListener : function() {
-        snowCanvas.height = document.body.clientHeight;
-        snowCanvas.width = document.body.clientWidth;
+        snowCanvas.height = window.innerHeight;
+        snowCanvas.width = window.innerWidth;
     },
     /* END LISTENER FUNCTIONS */
     listenerState: "on",
@@ -207,8 +207,8 @@ var flurryStorm = {
        } else {
         setTimeout(function(){
         snowCanvas.style.position = "fixed";
-        snowCanvas.height = document.body.clientHeight;
-       snowCanvas.width = document.body.clientWidth;
+        snowCanvas.height = window.innerHeight;
+       snowCanvas.width = window.innerWidth;
     },100);
        }
        snowCanvas.style.overflow = "hidden";
